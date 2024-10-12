@@ -159,6 +159,10 @@ class LaunchContext:
                     )
                 return _dict[key]
 
+            def __contains__(self, key):
+                _dict = self.__dict__['__dict']
+                return key in _dict
+
             def __setattr__(self, key, value):
                 raise AttributeError("can't set attribute '{}', locals are read-only".format(key))
 
