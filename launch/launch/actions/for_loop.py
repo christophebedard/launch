@@ -189,6 +189,7 @@ class ForEach(Action):
 
     def execute(self, context: LaunchContext) -> List[LaunchDescriptionEntity]:
         # Get the for-each input values
+        input_description = '+'.join(val.describe() for val in self._input_values)
         input_values = perform_substitutions(context, self._input_values)
         self._logger.debug(f'input_values={input_values}')
         # Split into list of dicts
@@ -197,6 +198,7 @@ class ForEach(Action):
         if not iteration_dicts:
             self._logger.warning('no input values: will not iterate')
 
+        self._logger.info(f'iteraring {len(iteration_dicts)} times based on: {input_description}')
         entities = []
         for iteration_dict in iteration_dicts:
             self._logger.debug(f'iteration: {iteration_dict}')
